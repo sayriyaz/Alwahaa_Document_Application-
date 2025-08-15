@@ -1,0 +1,64 @@
+<h1>Tasks</h1>
+<a href="{% url 'add_task' %}">Add Task</a>
+
+<!-- Filter Form -->
+<form method="get" action="{% url 'tasks_list' %}">
+    <label for="status">Filter by Status:</label>
+    <select name="status" id="status">
+        <option value="">All</option>
+        <option value="not_started" {% if status_filter == 'not_started' %}selected{% endif %}>Not Started</option>
+        <option value="in_progress" {% if status_filter == 'in_progress' %}selected{% endif %}>In Progress</option>
+        <option value="completed" {% if status_filter == 'completed' %}selected{% endif %}>Completed</option>
+    </select>
+
+    <label for="assigned_to">Filter by Assigned User:</label>
+    <select name="assigned_to" id="assigned_to">
+        <option value="">All</option>
+        {% for user in assigned_users %}
+            <option value="{{ user.username }}" {% if assigned_to_filter == user.username %}selected{% endif %}>{{ user.username }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
+
+<!-- Task List -->
+<<!-- Task List -->
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Client</th>
+            <th>Assigned To</th>
+            <th>Status</th>
+            <th>Due Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.title }}</td>
+                <td>{{ task.client.name }}</td>
+                <td>{{ task.assigned_to.username }}</td>
+                <!-- Color-coding based on task status -->
+                <td style="color: 
+                    {% if task.status == 'not_started' %}red
+                    {% elif task.status == 'in_progress' %}orange
+                    {% elif task.status == 'completed' %}green
+                    {% else %}black{% endif %};
+                ">
+                    {{ task.status }}
+                </td>
+                <td>{{ task.due_date }}</td>
+                <td>
+                    <a href="{% url 'edit_task' task.id %}">Edit</a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="6">No tasks found.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

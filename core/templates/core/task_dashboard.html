@@ -1,0 +1,18 @@
+<h1>Task Dashboard</h1>
+
+<div>
+    <h2>Task Summary</h2>
+    <p>Total Tasks: {{ total_tasks }}</p>
+    <p>Not Started: {{ not_started }}</p>
+    <p>In Progress: {{ in_progress }}</p>
+    <p>Completed: {{ completed }}</p>
+</div>
+
+<div>
+    <h2>Upcoming Tasks (Next 7 Days)</h2>
+    <ul>
+        {% for task in upcoming_tasks %}
+            <li>{{ task.title }} (Due: {{ task.due_date }}) - {{ task.status }}</li>
+        {% endfor %}
+    </ul>
+</div>

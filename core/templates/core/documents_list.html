@@ -1,0 +1,10 @@
+<h1>Documents</h1>
+<a href="{% url 'add_document' %}">Add Document</a>
+<ul>
+    {% for document in documents %}
+        <li>
+            {{ document.title }} - {{ document.status }}
+            <a href="{% url 'edit_document' document.id %}">Edit</a>
+        </li>
+    {% endfor %}
+</ul>
