@@ -1,18 +1,30 @@
-<h1>Task Dashboard</h1>
+{% extends "core/base.html" %}
+{% block content %}
+<h2>Dashboard</h2>
 
-<div>
-    <h2>Task Summary</h2>
-    <p>Total Tasks: {{ total_tasks }}</p>
-    <p>Not Started: {{ not_started }}</p>
-    <p>In Progress: {{ in_progress }}</p>
-    <p>Completed: {{ completed }}</p>
-</div>
+<p>Total: {{ total_tasks }} |
+Not Started: {{ not_started }} |
+In Progress: {{ in_progress }} |
+ Completed: {{ completed }}</p>
 
-<div>
-    <h2>Upcoming Tasks (Next 7 Days)</h2>
-    <ul>
-        {% for task in upcoming_tasks %}
-            <li>{{ task.title }} (Due: {{ task.due_date }}) - {{ task.status }}</li>
-        {% endfor %}
-    </ul>
-</div>
+<h3>Upcoming Tasks (7 days)</h3>
+<ul>
+  {% for t in upcoming_tasks %}
+    <li>{{ t.title }} — {{ t.due_date }} ({{ t.assigned_to.username }})</li>
+  {% empty %}
+    <li>No upcoming tasks.</li>
+  {% endfor %}
+</ul>
+
+<h3>Expiring (Next 30 days): TL or Establishment Card</h3>
+<ul>
+  {% for c in expiring_items %}
+    <li>{{ c.name }} —
+      TL: {{ c.trade_license_expiry|default:"-" }},
+      EC: {{ c.establishment_card_expiry|default:"-" }}
+    </li>
+  {% empty %}
+    <li>No upcoming expiries.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

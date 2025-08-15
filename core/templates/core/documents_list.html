@@ -8,3 +8,18 @@
         </li>
     {% endfor %}
 </ul>
+{% extends "core/base.html" %}
+{% block content %}
+<h2>Documents (legacy)</h2>
+<table>
+  <tr><th>Title</th><th>Client</th><th>Status</th><th>Submitted</th></tr>
+  {% for d in documents %}
+  <tr>
+    <td>{{ d.title }}</td>
+    <td>{{ d.client.name }}</td>
+    <td>{{ d.status }}</td>
+    <td>{{ d.submitted_date }}</td>
+  </tr>
+  {% empty %}<tr><td colspan="4">No documents</td></tr>{% endfor %}
+</table>
+{% endblock %}

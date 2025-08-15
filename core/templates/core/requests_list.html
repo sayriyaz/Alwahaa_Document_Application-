@@ -1,0 +1,22 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h2>Service Requests</h2>
+<table>
+  <tr><th>Company</th><th>Service</th><th>Status</th><th>Created</th></tr>
+  {% for r in requests %}
+  <tr>
+    <td>{{ r.company.name }}</td>
+    <td>{{ r.service_type.name }}</td>
+    <td>{{ r.status }}</td>
+    <td>{{ r.created_at }}</td>
+  </tr>
+  {% empty %}<tr><td colspan="4">No requests</td></tr>{% endfor %}
+</table>
+
+<h3>Add Service Request</h3>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save</button>
+</form>
+{% endblock %}

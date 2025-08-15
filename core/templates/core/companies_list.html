@@ -1,0 +1,23 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h2>Companies</h2>
+<table>
+  <tr><th>Name</th><th>TL No</th><th>TL Expiry</th><th>EC Expiry</th><th>Sponsor</th></tr>
+  {% for c in companies %}
+  <tr>
+    <td>{{ c.name }}</td>
+    <td>{{ c.trade_license_number }}</td>
+    <td>{{ c.trade_license_expiry }}</td>
+    <td>{{ c.establishment_card_expiry }}</td>
+    <td>{{ c.sponsor }}</td>
+  </tr>
+  {% empty %}<tr><td colspan="5">No companies</td></tr>{% endfor %}
+</table>
+
+<h3>Add / Edit Company</h3>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save</button>
+</form>
+{% endblock %}

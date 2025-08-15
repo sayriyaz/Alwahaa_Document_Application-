@@ -1,2 +1,13 @@
-<h1>Welcome to Document Clearing Service</h1>
-<a href="{% url 'clients_list' %}">View Clients</a>
+{% extends "core/base.html" %}
+
+{% block content %}
+<h1>Alwahaa – Operations</h1>
+<p>Manage companies, service requests, tasks, and expiries.</p>
+
+<nav>
+  <a href="{% url 'companies_list' %}">Companies</a> |
+  <a href="{% url 'requests_list' %}">Service Requests</a> |
+  <a href="{% url 'tasks_list' %}">Tasks</a> |
+  <a href="{% url 'task_dashboard' %}">Dashboard</a>
+</nav>
+{% endblock %}
